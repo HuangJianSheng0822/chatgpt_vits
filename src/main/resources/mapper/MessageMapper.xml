@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.huang.chatgpt_vits.mapper.MessageMapper">
+
+    <select id="getMessages" resultType="com.huang.chatgpt_vits.pojo.Message">
+        select role,content from message where dia_id = #{map.diaId}
+        <choose>
+            <when test='map.role=="system"'>
+                and role="system"
+            </when>
+            <when test='map.role=="user"'>
+                and role="user"
+            </when>
+        </choose>
+        order by created asc limit 0,520
+    </select>
+</mapper>

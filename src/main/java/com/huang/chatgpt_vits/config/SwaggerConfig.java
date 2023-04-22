@@ -1,0 +1,53 @@
+package com.huang.chatgpt_vits.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.oas.annotations.EnableOpenApi;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.ApiSelector;
+import springfox.documentation.spring.web.plugins.Docket;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+@Configuration
+@EnableOpenApi
+public class SwaggerConfig {
+
+    @Bean
+    public Docket docket1(){
+        Contact contact = new Contact("name", "url", "@email.com");
+        ApiInfo apiInfo = new ApiInfo(
+                "API",
+                "description",
+                "1.0",
+                "termOfServiceUrl",
+                contact,
+                "Apache 2.0",
+                "http://www.apache.org/licenses/LICENSE-2.0",
+                new ArrayList());
+        return new Docket(DocumentationType.OAS_30)
+                .apiInfo(apiInfo)
+                .groupName("groupName1")
+                .enable(false)
+                //RequestHandlerSelectors,配置要扫描接口的方式
+                //basePackage() 指定要扫描的包
+                //any()：扫描全部
+                //none();不扫描
+                //withClassAnnotation:扫描类上的注解
+                //withMethodAnotation: 扫描方法上的注解
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.huang.chatgpt_vits.controller"))
+                //paths() 过滤什么路径
+                //.paths(PathSelectors.ant("/kuang/**"))
+                .build();
+    }
+
+    @Bean
+    public Docket docket2(){
+        return new Docket(DocumentationType.OAS_30);
+    }
+}

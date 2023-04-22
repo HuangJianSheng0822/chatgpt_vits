@@ -1,8 +1,5 @@
 package com.huang.chatgpt_vits.service.impl;
 
-import com.alibaba.fastjson2.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.huang.chatgpt_vits.dto.VitsDto;
 import com.huang.chatgpt_vits.mapper.VitsMapper;
@@ -11,25 +8,13 @@ import com.huang.chatgpt_vits.service.VitsService;
 import com.huang.chatgpt_vits.util.UUIDUtil;
 import com.huang.chatgpt_vits.vo.Result;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @Service
 public class VitsServiceImpl extends ServiceImpl<VitsMapper, Vits> implements VitsService {

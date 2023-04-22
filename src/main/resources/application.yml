@@ -3,15 +3,33 @@ vits:
   format: wav
   path: F:/wav/
 
+openai:
+  serviceUrl: http://localhost:8080/sendMessage
+  url: https://api.openai.com/v1/chat/completions
+  model: gpt-3.5-turbo
+  authorization: "Bearer xxxxxxxxxxxxx"
+  stream: false
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/chatgpt
+    url: jdbc:mysql://localhost:3306/chatgpt_vits
     username: root
     password: 1234
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  web:
-    resources:
-      static-locations: file:${vits.path}
+
+mybatis-plus:
+  # configuration:
+    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.huang.chatgpt_vits.pojo
+
+server:
+  port: 8082
