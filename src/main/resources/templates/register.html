@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>注册</title>
+    <link href="css/login/bootstrap.min-3.4.0.css" rel="stylesheet">
+    <link href="css/login/font-awesome-4.3.0.css" rel="stylesheet">
+    <link href="css/login/custom.css" rel="stylesheet">
+    <link href="css/login/animate.css" rel="stylesheet">
+    <link href="css/login/style-2.2.0.css" rel="stylesheet">
+    <link href="css/login/index.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="form-signin">
+        <div id="stage">
+            <div id="inner">
+                <div id="cover">
+                    <div id="text">
+                        <span style="color: cyan;">H</span><span style="color: white;">+</span>
+                    </div>
+                    <div id="detail"></div>
+                    <div id="handle"></div>
+                </div>
+                <canvas class="mb-4" id="live2d" width="800" height="800"></canvas>
+            </div>
+            <a id="info" href="javascript:info()"><i class="fa fa-lg fa-info"></i></a>
+            <a id="refresh" href="javascript:refresh()"><i class="fa fa-lg fa-refresh"></i></a>
+        </div>
+        <h3>欢迎注册 H+</h3>
+        <p>创建一个H+新账户</p>
+        <form class="m-t" id="zc" role="form" onsubmit="return false;">
+            <div class="form-group">
+                <input name="email" type="email" class="form-control" placeholder="请输入邮箱" required>
+            </div>
+            <div class="form-group">
+                <input id="pwd" name="pwd" type="password" class="form-control" placeholder="请输入密码" required>
+            </div>
+            <div class="form-group">
+                <input id="confirm" name="confirm" type="password" class="form-control" placeholder="请再次输入密码"
+                       required>
+            </div>
+
+            <div class="form-group dcode">
+                <input type="text" class="form-control" placeholder="请输入验证码" name="code"/>
+                <button type="submit" id="is_send">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                         class="bi bi-send" viewBox="0 0 16 16" id="send_code">
+                        <path
+                                d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                    </svg>
+                </button>
+            </div>
+            <button class="btn btn-primary block full-width m-b" id="reg">注 册</button>
+            <p class="text-muted text-center"><small>已经有账户了？</small><a href="login.html">点此登录</a>
+            </p>
+            <img src="img/login/1.gif" style="width: 100%;">
+        </form>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="js/login/jquery-2.1.1.min.js"></script>
+<script src="js/login/bootstrap.min-3.4.0.js"></script>
+<!-- iCheck -->
+<script src="js/login/icheck.min.js"></script>
+<!-- Jquery Validate -->
+<script src="js/login/jquery.validate.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+        $("#zc").validate({
+            rules: {
+                confirm: {
+                    equalTo: "#pwd"
+                }
+            },
+            messages: {
+                email: {
+                    required: "请输入您的邮箱"
+                },
+                password: {
+                    required: "请输入您的密码"
+                },
+                confirm: {
+                    required: "请再次输入您的密码",
+                    equalTo: "两次输入的密码不一致"
+                },
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    function stop() {
+        return false;
+    }
+
+    document.oncontextmenu = stop;
+</script>
+<script src="js/login/live2d.min.js"></script>
+<script src="js/login/index.js"></script>
+</body>
+</html>
+<script type="text/javascript" src="js/login.js"></script>

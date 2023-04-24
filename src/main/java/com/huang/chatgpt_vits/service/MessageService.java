@@ -6,5 +6,5 @@ import com.huang.chatgpt_vits.pojo.Message;
 import com.huang.chatgpt_vits.pojo.OpenAiResult;
 
 public interface MessageService extends IService<Message> {
-    String sendMsg(OpenAiDto openAiDto,String diaId);
+    String sendMsg(OpenAiDto openAiDto, String diaId, String role);
 }

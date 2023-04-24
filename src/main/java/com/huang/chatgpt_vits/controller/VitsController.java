@@ -13,13 +13,17 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "vits")
 public class VitsController {
 
-    @Autowired
+
     private VitsService vitsService;
 
+    @Autowired
+    public VitsController(VitsService vitsService) {
+        this.vitsService = vitsService;
+    }
+
     @ApiOperation("语音请求")
-    @ApiImplicitParam(name = "vitsDto")
     @PostMapping("/getVits")
-    private Result getVits( @RequestBody VitsDto vitsDto){
+    private Result getVits(@RequestBody VitsDto vitsDto) {
         return vitsService.vitsUrl(vitsDto);
     }
 }

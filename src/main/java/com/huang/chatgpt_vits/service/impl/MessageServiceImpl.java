@@ -2,6 +2,7 @@ package com.huang.chatgpt_vits.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.huang.chatgpt_vits.bo.MessageBo;
 import com.huang.chatgpt_vits.dto.OpenAiDto;
 import com.huang.chatgpt_vits.mapper.MessageMapper;
 import com.huang.chatgpt_vits.mapper.OpenAiMapper;
@@ -36,33 +37,35 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
 
     @Autowired
     private MessageMapper messageMapper;
+    @Autowired
+    private MessageBo messageBo;
+
     @Override
-    public String sendMsg(OpenAiDto openAiDto,String diaId) {
+    public String sendMsg(OpenAiDto openAiDto, String diaId, String role) {
 
         //请求头
         HttpHeaders headers = new HttpHeaders();
         //请求体
         JSONObject paramMap = new JSONObject();
-        paramMap.put("url",url);
-        paramMap.put("model",model);
-        paramMap.put("authorization",authorization);
-        paramMap.put("max_tokens",openAiDto.getMax_tokens());
-        paramMap.put("temperature",openAiDto.getTemperature());
+        paramMap.put("url", url);
+        paramMap.put("model", model);
+        paramMap.put("authorization", authorization);
+        paramMap.put("max_tokens", openAiDto.getMax_tokens());
+        paramMap.put("temperature", openAiDto.getTemperature());
         paramMap.put("top_p",openAiDto.getTop_p());
         paramMap.put("n",openAiDto.getN());
-        paramMap.put("stream",stream);
+        paramMap.put("stream", stream);
 
         //构建上下文，有system,user
         List<Message> messages = getMessages(diaId);
+        List<MessageBo> msgs = messageBo.toMsgList(messages);
         //将新内容加入上下文
         Message temp = new Message();
         temp.setRole(openAiDto.getRole());
         temp.setContent(openAiDto.getContent());
         temp.setDiaId(diaId);
-        messages.add(temp);
-
-
-        paramMap.put("messages",messages);
+        msgs.add(messageBo.toMsg(temp));
+        paramMap.put("messages", msgs);
         //整合请求头和请求参数
         HttpEntity<JSONObject> httpEntity = new HttpEntity<>(paramMap, headers);
         //请求客户端
@@ -70,7 +73,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         //发起请求
         ResponseEntity<OpenAiResult> result = rt.postForEntity(serviceUrl, httpEntity, OpenAiResult.class);
 
-        if (result.getStatusCodeValue()==200){
+        if (result.getStatusCodeValue() == 200) {
             Message message = result.getBody().getChoices().get(0).getMessage();
             message.setDiaId(diaId);
             //显示

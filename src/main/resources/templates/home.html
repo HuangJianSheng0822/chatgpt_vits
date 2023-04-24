@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="js/jquery-3.5.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	<link rel="stylesheet" type="text/css" href="css/home.css"/>
+	<script src="js/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<div class="bg">
+	<div class="head">
+		<div class="top">
+			<p class="top_p">
+			<h3>欢迎光临</h3></p>
+		</div>
+		<a href="system.html"><img class="system" src="img/icon/Icon_7_Disk.png"/></a>
+		<hr>
+		<div class="home_main">
+			<div class="user_main">
+				<img src="img/icon/8农民兔-rgb.png" class="head_img"/>
+				<ul>
+					<li><p><img src="img/icon/Icon_13_Camera.png"/>账号管理</p></li>
+					<li onclick="handleClick()"><p><img src="img/icon/Icon_13_Camera.png"/>添加会话</p></li>
+					<li><p><img src="img/icon/Icon_13_Camera.png"/>退出登录</p></li>
+				</ul>
+			</div>
+			<div class="msg_list">
+				<div class="list_item">
+					<input type="text" value="111" hidden class="gia"/>
+					<h3>H3</h3>
+					<p>ppppppppppppppppp</p>
+				</div>
+				<hr>
+			</div>
+		</div>
+	</div>
+
+</div>
+</body>
+
+<!--弹窗-->
+<div class="overlap"></div>
+<div class="dialog_outter"></div>
+
+
+</html>
+
+
+<style>
+
+	.dialog_outter {
+		position: absolute;
+		top: 25%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	.dialog_wrapper {
+		width: 400px;
+		/*背景色*/
+		background: #CCCCFF;
+		border: 1px solid #f0f0f0;
+		border-radius: 10px;
+		padding: 10px;
+		position: relative;
+		box-sizing: border-box;
+	}
+
+	.dialog_close_btn {
+		position: absolute;
+		right: 20px;
+		top: 10px;
+		cursor: pointer;
+	}
+
+
+	.dialog_content {
+		padding: 20px;
+		box-sizing: border-box;
+		text-align: center;
+	}
+
+	.dialog_btn_group {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.btn_confirm {
+		background-color: Blue;
+		color: #fff;
+		padding: 5px 10px;
+		border: 1px solid blue;
+		border-radius: 4px;
+		margin-right: 10px;
+		cursor: pointer;
+	}
+
+	.btn_cancel {
+		background-color: #fff;
+		padding: 5px 10px;
+		border: 1px solid #000;
+		border-radius: 4px;
+		margin-right: 10px;
+		cursor: pointer;
+	}
+
+	.form_item span {
+		display: inline-block;
+		width: 100px;
+	}
+
+	.form_item input {
+		width: 200px;
+		height: 25px;
+		line-height: 25px;
+		outline: none;
+		border-radius: 5px;
+	}
+
+	.form_item {
+		margin-bottom: 10px;
+	}
+
+	.form_item:last-child {
+		margin-bottom: 0;
+	}
+
+	.overlap {
+		opacity: 0.6;
+		width: 100%;
+		display: none;
+		position: absolute;
+	}
+</style>
+
+<script>
+	let dialog_outter = document.querySelector(".dialog_outter")
+	let overlap = document.querySelector(".overlap")
+	const dialog_html_str = '<div class="dialog_wrapper">' +
+			'<div class="dialog_close_btn" onclick="closeDialog()">X</div>' +
+			'<div class="dialog_content">' +
+			'<div class="form_item">' +
+			'<span>标题：</span>' +
+			'<input type="text" name="title" placeholder="请输入会话名称" id="title">' +
+			'</div>' +
+			'<div class="form_item">' +
+			'<span>描述：</span>' +
+			'<input type="text" name="desc" id="desc">' +
+			'</div>' +
+			'</div>' +
+			'<div class="dialog_btn_group">' +
+			'<div class="btn_confirm" onclick="addDia()">确定</div>' +
+			'<div class="btn_cancel" onclick="closeDialog()">取消</div>' +
+			'</div>' +
+			'</div>'
+
+	function handleClick() {
+		overlap.style.display = "block";
+		let fg = document.createRange().createContextualFragment(dialog_html_str)
+		dialog_outter.appendChild(fg)
+	}
+
+	function closeDialog() {
+		overlap.style.display = "none";
+		let dialog = document.querySelector(".dialog_wrapper");
+		dialog.remove(1);
+	}
+
+	//添加
+	function addDia() {
+		var title = $("#title").val();
+		var desc = $("#desc").val()
+
+		$.ajax({
+			type: "post",
+			url: "/dia/add",
+			data: {
+				title: title,
+				desc: desc
+			},
+			success: function (data, textStatus) {
+				//追加，页面不刷新
+				let str_html = $('<div class="list_item"><input type="text" hidden/><h3></h3><p></p></div><hr>');
+				$(str_html).children('input').attr('value', data.data);
+				$(str_html).children('h3').text(title);
+				$(str_html).children('p').text(desc);
+				$(".msg_list").append(str_html);
+				closeDialog()
+				console.log("YES")
+			},
+			errors: function (XMLHttpRequest, textStatus, errorThrown) {
+				console.log("NO")
+			}
+		})
+	}
+
+	$(".msg_list").on('click', '.list_item', function () {
+		let diaId = $(this).children('input').val()
+		localStorage.setItem('diaId', diaId);
+		window.location.href = "index.html"
+	})
+
+
+	//查询
+	$.ajax({
+		type: "post",
+		url: "/dia/getAll",
+		success: function (data, textStatus) {
+			for (let i = 0; i < data.data.length; i++) {
+				let str_html = $('<div class="list_item"><input type="text" hidden/><h3></h3><p></p></div><hr>');
+				$(str_html).children('input').attr('value', data.data[i].diaId);
+				$(str_html).children('h3').text(data.data[i].title);
+				$(str_html).children('p').text(data.data[i].desc);
+				$(".msg_list").append(str_html);
+			}
+			closeDialog();
+			console.log("YES")
+		},
+		errors: function (XMLHttpRequest, textStatus, errorThrown) {
+			console.log("NO")
+		}
+	})
+</script>

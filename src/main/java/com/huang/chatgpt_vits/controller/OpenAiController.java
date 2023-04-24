@@ -18,19 +18,23 @@ import javax.servlet.http.HttpServletRequest;
 @CrossOrigin
 public class OpenAiController {
 
-    @Autowired
+
     private MessageService messageService;
+
+    @Autowired
+    public OpenAiController(MessageService messageService) {
+        this.messageService = messageService;
+    }
 
     @ApiOperation("发送msg")
     @PostMapping("/sendMsg")
-    private Result sendMsg(@RequestBody OpenAiDto openAiDto, HttpServletRequest httpServletRequest){
+    private Result sendMsg(@RequestBody OpenAiDto openAiDto, HttpServletRequest httpServletRequest) {
         String text = openAiDto.getContent();
-        if (text==null||text.length()==0){
-            return new Result(200,"消息不合格",null);
+        if (text == null || text.length() == 0) {
+            return new Result(200, "消息不合格", null);
         }
-        String diaId="1";
-        String content = messageService.sendMsg(openAiDto, diaId);
-        if (content!=null){
+        String content = messageService.sendMsg(openAiDto, openAiDto.getDiaId(), openAiDto.getRole());
+        if (content != null) {
             return new Result(200,"YES",content);
         }
         return new Result(200,"NO",null);

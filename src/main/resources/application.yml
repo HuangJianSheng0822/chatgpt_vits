@@ -7,7 +7,7 @@ openai:
   serviceUrl: http://localhost:8080/sendMessage
   url: https://api.openai.com/v1/chat/completions
   model: gpt-3.5-turbo
-  authorization: "Bearer xxxxxxxxxxxxx"
+  authorization: "Bearer xxx"
   stream: false
 
 spring:
@@ -20,9 +20,23 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  mail:
+    default-encoding: UTF-8
+    host: smtp.163.com
+    port: 587
+    username: xxxx
+    password: xxxx
+    from: xxx
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+
 mybatis-plus:
-  # configuration:
-    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       logic-delete-field: deleted

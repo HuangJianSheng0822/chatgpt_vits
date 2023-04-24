@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>登录</title>
+    <link href="css/login/bootstrap.min-3.4.0.css" rel="stylesheet">
+    <link href="css/login/font-awesome-4.3.0.css" rel="stylesheet">
+    <link href="css/login/animate.css" rel="stylesheet">
+    <link href="css/login/style-2.2.0.css" rel="stylesheet">
+    <link href="css/login/index.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div class="form-signin">
+        <div id="stage">
+            <div id="inner">
+                <div id="cover">
+                    <div id="text">
+                        <span style="color: cyan;">H</span><span style="color: white;">+</span>
+                    </div>
+                    <div id="detail"></div>
+                    <div id="handle"></div>
+                </div>
+                <canvas class="mb-4" id="live2d" width="800" height="800"></canvas>
+            </div>
+            <a id="info" href="javascript:info()"><i class="fa fa-lg fa-info"></i></a>
+            <a id="refresh" href="javascript:refresh()"><i class="fa fa-lg fa-refresh"></i></a>
+        </div>
+    </div>
+    <h3>欢迎使用 H+</h3>
+
+    <form class="m-t" onsubmit="return false">
+        <div class="form-group">
+            <input id="login_id" name="email" type="email" class="form-control" placeholder="邮箱" required>
+        </div>
+        <div class="form-group">
+            <input id="login_pwd" name="pwd" type="password" class="form-control" placeholder="密码" required>
+        </div>
+
+        <button class="btn btn-primary block full-width m-b" id="sub">登 录</button>
+        <div class="form-group">
+            <div class="checkbox i-checks">
+                <label class="no-padding">
+                    <input type="checkbox" name="remember" id="remember"><i></i> 自动登录</label>
+                <span style="padding: 0 10px">|</span>
+                <span class="text-muted text-center"><a href="register.html">注册一个新账号</a>
+                        </span>
+            </div>
+        </div>
+        <img src="img/login/1.gif" style="width: 100%;">
+    </form>
+</div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="js/login/jquery-2.1.1.min.js"></script>
+<script src="js/login/bootstrap.min-3.4.0.js"></script>
+
+<script src="js/login/live2d.min.js"></script>
+<script src="js/login/index.js"></script>
+</body>
+</html>
+<script type="text/javascript" src="js/login.js"></script>

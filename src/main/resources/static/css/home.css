@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'myyuan';
+    src: url('font/仓耳舒圆体W04.ttf');
+}
+
+.top_p {
+    display: inline-block;
+    text-align: center;
+    color: aquamarine;
+    margin-left: 105px;
+}
+
+/*主体部分，flex左右*/
+.home_main {
+    display: flex;
+}
+
+/*左侧主体部分*/
+.user_main {
+    width: 20%;
+    background-color: pink;
+
+}
+
+/*右侧主体部分*/
+.msg_list {
+    flex: 1;
+    background-color: aqua;
+}
+
+.user_main > img {
+    margin-top: 10px;
+    margin-left: 10%;
+}
+
+/*主体高度*/
+.user_main, .msg_list {
+    height: 435px;
+}
+
+/*ul,flex,列*/
+.user_main > ul {
+    margin-top: 20px;
+    background-color: transparent;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+/*li,flex*/
+.user_main > ul > li {
+    border: 2px solid #a1a1a1;
+    border-radius: 25px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: yellow;
+}
+
+/*鼠标样式*/
+.user_main > ul > li:hover {
+    background-color: #55ff00;
+    cursor: pointer
+}
+
+/*p,flex,居中*/
+.user_main > ul > li > p {
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    font-family: 'myyuan'; /*自定义的字体名字*/
+    color: #717171;
+}
+
+/*li高度*/
+.user_main > ul > li {
+    margin-bottom: 5px;
+    height: 40px;
+}
+
+/*消息列表*/
+.msg_list {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 5px;
+    color: #939393;
+    background-color: blanchedalmond;
+}
+
+.msg_list::-webkit-scrollbar {
+    display: none;
+}
+
+/*消息列表高度*/
+.msg_list {
+    height: 425px;
+}
+
+.msg_list > div > h3 {
+    cursor: pointer
+}
+
+h3 {
+    color: black;
+}
+
+.head_img {
+    width: 80%;
+    margin-left: 0px;
+}
