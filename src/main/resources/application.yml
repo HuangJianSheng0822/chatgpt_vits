@@ -1,13 +1,18 @@
 vits:
-  url: "http://xxxx/voice"
+  url: "/voice"
   format: wav
-  path: F:/wav/
+  path: /wav/
+  apiPath: ${vits.path}**
+  localPath: F:/wav/
+
+
+
 
 openai:
   serviceUrl: http://localhost:8080/sendMessage
   url: https://api.openai.com/v1/chat/completions
   model: gpt-3.5-turbo
-  authorization: "Bearer xxx"
+  authorization: "Bearer "
   stream: false
 
 spring:

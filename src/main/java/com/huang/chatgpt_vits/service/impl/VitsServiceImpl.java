@@ -23,26 +23,28 @@ public class VitsServiceImpl extends ServiceImpl<VitsMapper, Vits> implements Vi
     private String url;
     @Value("${vits.format}")
     private String format;
+    @Value("${vits.localPath}")
+    private String localPath;
     @Value("${vits.path}")
     private String path;
 
     @Override
-    public Result vitsUrl(VitsDto vitsDto){
+    public Result vitsUrl(VitsDto vitsDto) {
 
-        String url=this.url+"?text="+vitsDto.getText()+"&id="
-                +vitsDto.getSpeakerId()+"&format="+format
-                +"&lang="+vitsDto.getLang()+"&length="+vitsDto.getLength();
+        String url = this.url + "?text=" + vitsDto.getText() + "&id="
+                + vitsDto.getSpeakerId() + "&format=" + format
+                + "&lang=" + vitsDto.getLang() + "&length=" + vitsDto.getLength();
 
         //请求客户端
         RestTemplate rt = new RestTemplate();
         ResponseEntity<byte[]> forEntity = rt.getForEntity(url, byte[].class);
         String fileName= UUIDUtil.fileNameByUUID()+".wav";
         try {
-            Files.write(Paths.get(path+fileName), Objects.requireNonNull(forEntity.getBody(),
+            Files.write(Paths.get(localPath + fileName), Objects.requireNonNull(forEntity.getBody(),
                     "未获取到下载文件"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new Result(forEntity.getStatusCodeValue(),"YES",fileName);
+        return new Result(forEntity.getStatusCodeValue(), "YES", path + fileName);
     }
 }

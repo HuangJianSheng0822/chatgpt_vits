@@ -40,11 +40,11 @@ $("#user_chat").click(function () {
             content: content
         }),
         success: function (data, textStatus) {
-            let r_chat_html = $('<div class="message robot_msg"><p><imgsrc="img/icon/Icon_29_Speaker.png" /></p></div>');
+            let r_chat_html = $(
+                '<div class="message robot_msg"><p></p></div>'
+            );
             if (data.code === 200) {
-                let r_img = '<img src="img/icon/Icon_29_Speaker.png"/>'
                 r_chat_html.children("p").text(data.data)
-                r_chat_html.children("p").append(r_img)
             }
             $(".left").append(r_chat_html)
             let message = document.getElementById('u_list');
@@ -58,19 +58,51 @@ $("#user_chat").click(function () {
 })
 
 
-$("#btn").click(function () {
+//数据加载
+$.ajax({
+    type: "get",
+    url: "api/speakerId.json",
+    contentType: "application/json;chatset=utf-8",
+    success: function (data, textStatus) {
+
+        //赋值
+        for (let i = 0; i < data.DATA.length; i++) {
+            let op_html = $('<option></option>');
+            let key = Object.keys(data.DATA[i]);
+            let value = Object.values(data.DATA[i]);
+            op_html.attr("value", key)
+            op_html.text(value)
+            $('#speakerId').append(op_html)
+        }
+    },
+    errors: function (XMLHttpRequest, textStatus, errorThrown) {
+
+    }
+
+})
+
+
+//响应音频点击服务
+$(".left").on('click', '#go_vits', function () {
+    //获取数据
+    let text = $(this).parent('p').text();
+    let speakerId = parseInt($('#speakerId').val())
+    let length = parseFloat($('#length').val())
+    let lang = $('#lang').val()
     $.ajax({
         type: "post",
-        url: "http://localhost:8080/getVits",
+        url: "/getVits",
         contentType: "application/json;chatset=utf-8",
         data: JSON.stringify({
-            text: "好喜欢你",
-            speakerId: 133,
-            lang: "zh",
-            length: 1.4
+            text: text,
+            speakerId: speakerId,
+            lang: lang,
+            length: length
         }),
         success: function (data, textStatus) {
-            console.log("YES")
+            $('#speak').attr('src', data.data)
+
+            console.log(data.data)
         },
         errors: function (XMLHttpRequest, textStatus, errorThrown) {
 
