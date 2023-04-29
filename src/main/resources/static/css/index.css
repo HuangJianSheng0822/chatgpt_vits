@@ -106,6 +106,7 @@ body {
 /*消息框*/
 .message {
     width: 300px;
+
     background-color: aquamarine;
     margin-bottom: 20px;
     text-align: left;
@@ -196,4 +197,10 @@ body {
 
 .item > img, .item > select {
     height: 30px;
+}
+
+
+/*顶部图片居中*/
+.top > img {
+    margin-left: 113px;
 }

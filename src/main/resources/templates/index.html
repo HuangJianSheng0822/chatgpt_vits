@@ -5,16 +5,17 @@
     <title></title>
     <script src="js/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="css/wav.css"/>
 </head>
 <body>
+<audio id="speak" hidden autoplay></audio>
 <div class="bg">
     <div class="head">
-        <a href="home.html"><img class="home" src="img/icon/Icon_13_Camera.png"/></a>
+        <a href="home.html"><img class="home" src="img/icon/home.png"/></a>
         <div class="top">
-            <img src="img/icon/Icon_2_Console.png" id="fold_btn"/>
-            top
+            <img class="top_img" src="img/icon/index_top.png"/>
         </div>
-        <a href="system.html"><img class="system" src="img/icon/Icon_7_Disk.png"/></a>
+        <a href="system.html"><img class="system" src="img/icon/system.png"/></a>
 
     </div>
     <hr>
@@ -23,27 +24,33 @@
 
             <!--消息-->
             <div class="left" id="u_list">
+
                 <div class="message robot_msg">
-                    <p>最近，我看了一些幽默笑话。我看了一些幽默笑话我看了一些幽默笑话我看了一些幽默笑话我看了一些幽默笑话<img
-                            src="img/icon/Icon_29_Speaker.png" id="go_vits"/></p>
+                    <p>最近，我看了一些幽默笑话。我看了一些幽默笑话我看了一些幽默笑话我看了一些幽默笑话我看了一些幽默笑话
+                        <button id="go_vits" value="wav/b45c797455a4494cb9ad997a040d81a8.wav" onclick="testVits(this)">
+                            <img
+                                    src="img/icon/speak.png"/></button>
+                    </p>
                 </div>
+
                 <div class="message user_msg">
                     <p>最近，我看了一些幽默笑话。我看了一些幽默笑话我看了一些幽默笑话我看了一些幽默笑话我看了一些幽默笑话</p>
                 </div>
+
+
             </div>
             <!--设置-->
             <div class="right">
 
-                <audio id="speak" autoplay hidden></audio>
 
                 <div class="item">
-                    <img src="img/icon/Icon_29_Speaker.png"/>
+                    <img src="img/icon/sel.png"/>
                     <select id="speakerId" class="select">
                     </select>
                 </div>
 
                 <div class="item">
-                    <img src="img/icon/Icon_29_Speaker.png"/>
+                    <img src="img/icon/sel.png"/>
                     <select id="length" class="select">
                         <option value=1.4>1.4</option>
                         <option value=1.3>1.3</option>
@@ -54,7 +61,7 @@
                 </div>
 
                 <div class="item">
-                    <img src="img/icon/Icon_29_Speaker.png"/>
+                    <img src="img/icon/sel.png"/>
                     <select id="lang" class="select">
                         <option value="zh">中</option>
                     </select>
@@ -63,13 +70,13 @@
         </div>
         <!--消息发送-->
         <div class="main_bottom">
-            <p class="send"><input type="text" id="uesr_content"/><img src="img/icon/Icon_29_Speaker.png"
+            <p class="send"><input type="text" id="uesr_content"/><img src="img/icon/send.png"
                                                                        id="user_chat"/></p>
         </div>
     </div>
 </div>
 </body>
-
 </html>
 
 <script src="js/index.js"></script>
+
